@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/user', function () {
+    $user = App\User::with('ozgecmis')->firstOrFail();
+
+    echo "id : ".$user->id."<br>";
+    echo "name : ".$user->name."<br>";
+    echo "email : ".$user->email."<br>";
+
+});
