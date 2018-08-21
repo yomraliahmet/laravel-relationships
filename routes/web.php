@@ -17,11 +17,21 @@ Route::get('/', function () {
 
 // Kullanıcının özgeçmişine ulaşıyoruz.
 Route::get('/user', function () {
-    $user = App\User::with('ozgecmis')->where('id',2)->firstOrFail();
+    $user = App\User::with('ozgecmis')->with('makaleler')->where('id',2)->firstOrFail();
 
+    echo "---------------------- Özgeçmiş Bilgileri --------------------------<br><br>";
     echo "id : ".$user->id."<br>";
     echo "name : ".$user->name."<br>";
     echo "email : ".$user->email."<br>";
+    echo "<br><br><br>";
+    echo "---------------------- Makale Bilgileri --------------------------<br><br>";
+
+
+
+    foreach($user->makaleler as $makale){
+        echo "başlık : ". $makale->baslik."<br>";
+        echo "detay : ".$makale->detay."<br><hr>";
+    }
 
 });
 
@@ -36,5 +46,6 @@ Route::get('/ozgecmis', function(){
     echo "meslek : ".$ozgecmis->meslek."<br>";
 
 });
+
 
 

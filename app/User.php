@@ -52,4 +52,19 @@ class User extends Authenticatable
     */
 
 
+    // Bu modelin ismini alıp sonuna "_id" ekleyerek verileri bu şekilde çekebiliyor.
+    // Bu durum ilişki kurulan tablodaki ilişki "id" si ile eşleşme olursa gerekleşir.
+    public function makaleler()
+    {
+        return $this->hasMany('App\Makale');
+    }
+
+
+/*  // üstteki ile aynı sonucu verim biraz daha gelişmiştir.
+    public function makaleler()
+    {
+        return $this->hasMany('App\Makale','user_id','id');
+    }
+ */
+
 }

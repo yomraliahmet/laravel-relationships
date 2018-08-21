@@ -23,7 +23,7 @@ class CreateOzgecmisTable extends Migration
 
             // unsigned() 0 dan yukarı değerlerin girilmesine izin verir, - değerlere izin vermez.
             // unique() bire bir (one to one) ilişki olacağından, aynı "user_id" değerinden başka bir kayıt olmamalıdır.
-            $table->integer('users_id')->unsigned()->unique();
+            $table->integer('user_id')->unsigned()->unique();
 
             $table->string('isim',25)->nullable();
             $table->string('soyisim',25)->nullable();
