@@ -47,5 +47,13 @@ Route::get('/ozgecmis', function(){
 
 });
 
+Route::get('/makale', function(){
+    $makale = App\Makale::with('user')->where('id',2)->firstOrFail();
+
+    echo "baslik : ". $makale->baslik."<br>";
+    echo "name : ". $makale->user->name."<br>";
+    echo "email : ". $makale->user->email."<br>";
+});
+
 
 
