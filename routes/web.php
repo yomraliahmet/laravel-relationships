@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 // Kullanıcının özgeçmişine ulaşıyoruz.
 Route::get('/user', function () {
-    $user = App\User::with('ozgecmis')->with('makaleler')->where('id',2)->firstOrFail();
+    $user = App\User::with('ozgecmis')->with('makaleler')->with('urunler')->where('id',2)->firstOrFail();
 
     echo "---------------------- Özgeçmiş Bilgileri --------------------------<br><br>";
     echo "id : ".$user->id."<br>";
@@ -31,6 +31,16 @@ Route::get('/user', function () {
     foreach($user->makaleler as $makale){
         echo "başlık : ". $makale->baslik."<br>";
         echo "detay : ".$makale->detay."<br><hr>";
+    }
+
+
+    echo "<br><br><br>";
+    echo "---------------------- Ürünler --------------------------<br><br>";
+
+    foreach($user->urunler as $urun){
+        echo "urun adi : ".$urun->urunadi."<br>";
+        echo "urun adet : ".$urun->adet."<br>";
+        echo "urun fiyat : ".$urun->fiyat."<br><hr>";
     }
 
 });
@@ -55,5 +65,25 @@ Route::get('/makale', function(){
     echo "email : ". $makale->user->email."<br>";
 });
 
+Route::get('/urun', function(){
+
+    $urun = App\Urun::with(['user' => function($query){
+        // Tekrarlayan kayıtları teke düşürüyoruz.
+        $query->distinct('id');
+
+        // Kullanıcıya ait ilgili üründen kaç tane var onu buluyoruz.
+        $query->withCount(['urunler' => function($query2){
+            $query2->where('urun_id',15);
+        }]);
+    }])->where('id',15)->firstOrFail();
+
+    foreach($urun->user as $user){
+        echo "user id : ". $user->id."<br>";
+        echo "name : ". $user->name."<br>";
+        echo "email : ". $user->email."<br>";
+        echo "toplam urun : ". $user->urunler_count."<br><hr>";
+    }
+
+});
 
 

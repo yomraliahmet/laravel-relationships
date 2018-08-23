@@ -67,4 +67,18 @@ class User extends Authenticatable
     }
  */
 
+    // çoka çok ilişki bu şekilde yazılıyor.
+    /*
+    public function urunler()
+    {
+        return $this->belongsToMany('App\Urun');
+    }
+*/
+    // üstteki ile aynı sonucu verir, daha gelişmişidir.
+    public function urunler()
+    {
+        //return $this->belongsToMany('App\Modeladi','ara_tablo','user_id','urun_id');
+        return $this->belongsToMany('App\Urun','urun_user','user_id','urun_id');
+    }
+
 }
