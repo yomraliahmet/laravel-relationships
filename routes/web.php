@@ -72,9 +72,11 @@ Route::get('/urun', function(){
         $query->distinct('id');
 
         // Kullanıcıya ait ilgili üründen kaç tane var onu buluyoruz.
+
         $query->withCount(['urunler' => function($query2){
             $query2->where('urun_id',15);
         }]);
+
     }])->where('id',15)->firstOrFail();
 
     foreach($urun->user as $user){
