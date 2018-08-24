@@ -102,4 +102,13 @@ Route::get('/urun2',function(){
 
 });
 
+Route::get('/sehir-kullanici-makale', function(){
+    $makale = App\Sehir::with('makaleler')->find(61);
+
+    foreach($makale->makaleler as $m){
+        echo "başlık : ". $m->baslik."<br>";
+        echo "detay : ". $m->detay."<br><hr>";
+    }
+});
+
 
