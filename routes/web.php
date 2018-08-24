@@ -88,4 +88,18 @@ Route::get('/urun', function(){
 
 });
 
+Route::get('/urun2',function(){
+    $urun = DB::table('urun_user')
+    ->select('user_id','urun_id','users.name as username')
+    ->addSelect(DB::raw('count(user_id) as user_count'))
+    ->groupBy('user_id')
+    ->join('users','users.id','=','user_id')
+    ->where('urun_id',15)->get();
+
+   foreach($urun as $u){
+    echo $u->username."  (".$u->user_count.")<br><hr>";
+   }
+
+});
+
 
