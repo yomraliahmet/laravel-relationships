@@ -113,7 +113,7 @@ Route::get('/sehir-kullanici-makale', function(){
 
 // Post dan yorumlara ulaşıyoruz
 Route::get('/post-comments', function(){
-    $post = App\Post::find(2);
+    $post = App\Post::find(5);
 
     foreach($post->comments as $comment){
         echo "comment id : ". $comment->id."<br>";
