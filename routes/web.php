@@ -111,4 +111,31 @@ Route::get('/sehir-kullanici-makale', function(){
     }
 });
 
+// Post dan yorumlara ulaşıyoruz
+Route::get('/post-comments', function(){
+    $post = App\Post::find(2);
 
+    foreach($post->comments as $comment){
+        echo "comment id : ". $comment->id."<br>";
+        echo "comment : ". $comment->body."<br><hr>";
+    }
+});
+
+// Video dan yorumlara ulaşıyoruz
+Route::get('/video-comments', function(){
+    $video = App\Video::find(7);
+
+    foreach($video->comments as $comment){
+        echo "comment id : ". $comment->id."<br>";
+        echo "comment : ". $comment->body."<br><hr>";
+    }
+});
+
+// Yorumun nereye ait olduğunu buluyoruz, hangi post yede video ise ona..
+Route::get('/comment', function(){
+    $comment = App\Comment::find(1);
+
+    $commentable = $comment->commentable;
+
+    dd($comment);
+});
