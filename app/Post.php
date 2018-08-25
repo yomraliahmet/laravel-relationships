@@ -13,4 +13,10 @@ class Post extends Model
     {
         return $this->morphMany('App\Comment', 'commentable');
     }
+
+    // posta ait tüm taglara ulaşıyoruz.
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag','taggable');
+    }
 }

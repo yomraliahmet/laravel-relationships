@@ -139,3 +139,21 @@ Route::get('/comment', function(){
 
     dd($comment);
 });
+
+// Posta ait tagları çekiyoruz.
+Route::get('/post-tags', function(){
+    $post = App\Post::find(10);
+    foreach($post->tags as $tags){
+        echo "tag : ". $tags->title."<br>";
+    }
+});
+
+// Tagın ait olduğu videoları listeliyoruz.
+Route::get('/tags-video', function(){
+    $tag = App\Tag::find(3);
+
+    foreach($tag->videos as $video){
+        echo "title : ".$video->title."<br>";
+    }
+});
+
