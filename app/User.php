@@ -81,4 +81,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Urun','urun_user','user_id','urun_id');
     }
 
+    // User e ait postlara ulaşıyoruz.
+    public function posts()
+    {
+        return $this->hasMany('App\Post','user_id','id');
+    }
+
 }

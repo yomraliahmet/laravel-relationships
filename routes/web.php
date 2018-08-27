@@ -157,3 +157,83 @@ Route::get('/tags-video', function(){
     }
 });
 
+
+// Kullanıcıya ait aktif olan postaları çekiyoruz.
+Route::get('/user-posts', function(){
+    $user = App\User::find(1);
+
+    $posts = $user->posts()->where('active',1)->get();
+    dd($posts);
+});
+
+// Kullanıcıya ait tüm postları listeliyoruz.
+Route::get('/user-posts1', function(){
+    $user = App\User::find(1);
+
+    foreach($user->posts as $post){
+        echo 'title : '. $post->title."<br>";
+        echo 'body : '. $post->body."<br><hr>";
+    }
+});
+
+// Yorumu bulunan postları getirir.
+Route::get('/posts', function(){
+    $posts = App\Post::has('comments')->get();
+    dd($posts);
+});
+
+// Toplam yorum sayısı 2 ve yukarısında olan kayıtları çeker.
+Route::get('/posts1', function(){
+    $posts = App\Post::has('comments', '>=', 2)->get();
+    dd($posts);
+});
+
+// Postlartında yorum bulunan kullanıcıları çeker.
+Route::get('/user-posts2', function(){
+    $user = App\User::has('posts.comments')->get();
+    dd($user);
+});
+
+// Yorumunda aranan kelime ile eşleşen postlar çekiliyor..
+Route::get('/posts3', function(){
+    $posts = App\Post::whereHas('comments', function($query){
+        $query->where('body','like','%Qui%');
+    })->get();
+    dd($posts);
+});
+
+// Yorumu bulunmayan postları getirir.
+Route::get('/posts4', function(){
+    $posts = App\Post::doesntHave('comments')->get();
+    dd($posts);
+});
+
+// Yorumunda aranan kelime bulunmayan postlar çekiliyor.
+Route::get('/posts5', function(){
+    $posts = App\Post::whereDoesntHave('comments', function($query){
+        $query->where('body','like','%Qui%');
+    })->get();
+    dd($posts);
+});
+
+
+// Posta ait toplam yorum sayılarını da çeker
+Route::get('/posts6', function(){
+    $posts = App\Post::withCount('comments')->get();
+    //dd($posts);
+
+    foreach ($posts as $post) {
+        echo $post->comments_count."<br>";
+    }
+});
+
+
+// Posta yorumlaraında arama yapar bulunan kayıtları, kayıt sayıları ile çeker.
+Route::get('/posts7', function(){
+    $posts = App\Post::whereHas('comments', function($query){
+        $query->where('body','like','%Qui%');
+    })->withCount('comments')->get();
+
+    dd($posts);
+});
+
