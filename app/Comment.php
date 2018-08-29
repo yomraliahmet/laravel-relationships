@@ -8,6 +8,8 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
+    protected $guarded = [];
+
     // One To Many Polymorphic Relations (Veritabanı Çeşitlilik İlişkileri)
     // Burası yorum modeli, sitede yapılan tüm yorumlar bu tabloda kaydedilecek
     // Yorum yapılabilen Post ve Video modellerimiz bulunuyor.

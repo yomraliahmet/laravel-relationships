@@ -237,3 +237,19 @@ Route::get('/posts7', function(){
     dd($posts);
 });
 
+
+// Yorum ekleniyor "save()" metodu ile.
+Route::get('/insert-comment', function(){
+    $comment = new App\Comment(['body' => 'Merhaba bu benim ilk yorumum..']);
+    $post = App\Post::find(1);
+    $post->comments()->save($comment);
+});
+
+// Birden fazla yorum ekleniyor "saveMany()" metodu ile.
+Route::get('/insert-comment1', function(){
+    $post = App\Post::find(1);
+    $post->comments()->saveMany([
+        new App\Comment(['body' => 'Merhaba Dünya']),
+        new App\Comment(['body' => 'Hello World']),
+    ]);
+});
