@@ -253,3 +253,22 @@ Route::get('/insert-comment1', function(){
         new App\Comment(['body' => 'Hello World']),
     ]);
 });
+
+// Yorum ekleme "create()" metodu ile
+Route::get('/create-comment', function(){
+    $post = App\Post::find(1);
+
+    $comment = $post->comments()->create([
+        'body' => 'Selam Dostlar..',
+    ]);
+});
+
+// Birden fazla yorum ekleme "createMany()" metodu ile
+Route::get('/create-comment1', function(){
+    $post = App\Post::find(1);
+
+    $comment = $post->comments()->createMany([
+        ['body' => 'Selam Kardeşler..'],
+        ['body' => 'Selam Yoldaşlar..'],
+    ]);
+});
