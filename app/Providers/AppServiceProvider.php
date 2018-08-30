@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+use App\Observers\CommentObserver;
+use App\Comment;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
             'post' => 'App\Post',
             'video' => 'App\Video',
         ]);
+
+        Comment::observe(CommentObserver::class);
 
     }
 

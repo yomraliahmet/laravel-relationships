@@ -272,3 +272,16 @@ Route::get('/create-comment1', function(){
         ['body' => 'Selam Yoldaşlar..'],
     ]);
 });
+
+// Observer ile
+// retrieved, creating, created, updating, updated, saving, saved, deleting, deleted, restoring, restored
+// aşamalarına müdahale edip veri manüpüle edebiliyoruz.
+
+Route::get('/create-comment-observer', function(){
+    $post = App\Post::find(1);
+
+    $comment = $post->comments()->createMany([
+        ['body' => 'Selam Kardeşler..'],
+        ['body' => 'Selam Yoldaşlar..'],
+    ]);
+});
